@@ -30,44 +30,27 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
       return NULL;
     }
 
+    \Drupal::logger('my_module')->notice("mmm " . $sourceUri);
+
     // Imagick doesn't support stream wrappers!
     $path = $this->fileSystem->realpath($sourceUri);
 
-    // Read the Jp2.
-    $im = new \Imagick();
-    try {
-      $im->readimage($path);
-    }
-    catch (\ImagickException $e) {
-      $this->logger->warning($e->getMessage());
-      return NULL;
-    }
-
-    // Handle transparency stuff.
-    $im->setImageBackgroundColor('white');
-    $im->setImageAlphaChannel(\Imagick::ALPHACHANNEL_REMOVE);
-    try {
-      $im->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
-    }
-    catch (\ImagickException $e) {
-      $this->logger->warning($e->getMessage());
-      return NULL;
-    }
-
-    // Resize the thumbnail to the globally configured width.
     $width = $this->configuration['width'] ?? 500;
-    if ($im->getImageWidth() > $width) {
-      try {
-        $im->scaleImage($width, 0);
-      }
-      catch (\ImagickException $e) {
-        $this->logger->warning($e->getMessage());
-        return NULL;
-      }
+
+    $filename = basename($path);
+
+    // Read the Jp2.
+    try {
+      $cmd = "convert " . $path . " -resize " . $width . "x" . $width . " /tmp/" .  $filename . ".jpg";
+      exec($cmd);
+    }
+    catch (\ImagickException $e) {
+      $this->logger->warning($e->getMessage());
+      return NULL;
     }
 
-    // Convert the image to JPG.
-    $im->setImageFormat('jpg');
+    $im = new \Imagick();
+    $im->readimage("/tmp/" . $filename . ".jpg");
     $image = $im->getImageBlob();
     $im->clear();
     $im->destroy();
