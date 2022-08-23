@@ -30,8 +30,6 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
       return NULL;
     }
 
-    \Drupal::logger('my_module')->notice("mmm " . $sourceUri);
-
     // Imagick doesn't support stream wrappers!
     $path = $this->fileSystem->realpath($sourceUri);
 
