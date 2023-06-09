@@ -10,7 +10,7 @@ jobs:
     - name: Mirror + trigger CI
       uses: SvanBoxel/gitlab-mirror-and-ci-action@master
       with:
-        args: "https://git.drupalcode.org/project/media_thumbnails_tiff"
+        args: "https://git.drupalcode.org/project/media_thumbnails_jp2"
       env:
         GITLAB_HOSTNAME: "git.drupal.org"
         GITLAB_USERNAME: "project_113262_bot"
