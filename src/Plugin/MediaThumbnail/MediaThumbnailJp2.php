@@ -54,7 +54,7 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
     $im->destroy();
 
     // Return a new managed file object using the generated thumbnail.
-    return file_save_data($image, $sourceUri . '.jpg');
+    return \Drupal::service('file.repository')->writeData($image, $sourceUri . '.jpg');
 
   }
 
