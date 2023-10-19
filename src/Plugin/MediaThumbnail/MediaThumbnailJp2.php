@@ -39,7 +39,7 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
 
     // Read the Jp2.
     try {
-      $cmd = "convert " . $path . " -resize " . $width . "x" . $width . " /tmp/" .  $filename . ".jpg";
+      $cmd = "convert " . $path . " -resize " . $width . "x" . $width . " /tmp/" . $filename . ".jpg";
       exec($cmd);
     }
     catch (\ImagickException $e) {
