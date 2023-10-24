@@ -39,7 +39,7 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
 
     // Read the Jp2.
     try {
-      $cmd = "convert " . $path . " -resize " . $width . "x" . $width . " /tmp/" .  $filename . ".jpg";
+      $cmd = "convert " . $path . " -resize " . $width . "x" . $width . " /tmp/" . $filename . ".jpg";
       exec($cmd);
     }
     catch (\ImagickException $e) {
@@ -54,7 +54,7 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
     $im->destroy();
 
     // Return a new managed file object using the generated thumbnail.
-    return file_save_data($image, $sourceUri . '.jpg');
+    return \Drupal::service('file.repository')->writeData($image, $sourceUri . '.jpg');
 
   }
 
