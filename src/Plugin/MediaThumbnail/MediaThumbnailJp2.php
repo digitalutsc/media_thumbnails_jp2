@@ -46,16 +46,24 @@ class MediaThumbnailJp2 extends MediaThumbnailBase {
       $this->logger->warning($e->getMessage());
       return NULL;
     }
-
+    $format = ".jpg";
     $im = new \Imagick();
-    $im->readimage("/tmp/" . $filename . ".jpg");
+    try{
+      $im->readimage("/tmp/" . $filename . $format);
+    }catch (\ImagickException $e){
+      $sourceUri = \Drupal::config('media.settings')->get('icon_base_uri') . '/' . 'generic.png';
+      $path = $this->fileSystem->realpath($sourceUri);
+      $im->readimage($path);
+      $format = ".png";
+    }
     $image = $im->getImageBlob();
     $im->clear();
     $im->destroy();
 
     // Return a new managed file object using the generated thumbnail.
-    return \Drupal::service('file.repository')->writeData($image, $sourceUri . '.jpg');
+    return \Drupal::service('file.repository')->writeData($image, $sourceUri . $format);
 
   }
 
 }
+
