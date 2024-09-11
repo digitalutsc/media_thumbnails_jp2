@@ -1,7 +1,7 @@
 name: Media Thumbnails Jp2
 type: module
 description: Generate custom thumbnails for Jp2 media entities
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
 package: Media
 dependencies:
   - media_thumbnails:media_thumbnails
