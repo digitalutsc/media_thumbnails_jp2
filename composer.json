@@ -1,0 +1,10 @@
+{
+  "name": "drupal/media_thumbnails_jp2",
+  "type": "drupal-module",
+  "description": "Generate custom thumbnails for Jp2 media entities",
+  "keywords": ["Drupal"],
+  "require": {
+    "drupal/core": "^9 || ^10 || ^11",
+    "drupal/media_thumbnails": "2.0"
+  }
+}
